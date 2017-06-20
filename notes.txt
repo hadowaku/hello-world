@@ -1,0 +1,111 @@
+pasting in git bash; right click header
+tab	autocomplete filenames/directories etc
+ls	list currenty directory
+	-a 	all
+	-l	changes output to ?
+	ls directory	list content of folder “directory”
+all comands are <command> <option(s)> <argument(s)>
+ 
+man <command>	list information about command
+<command> --help	windwos version of “man”
+ 
+ 
+directory system
+pwd	print working directory
+/c/	start of absolute path in windows
+./ 	current directory
+../	directory above
+~ 	home directory
+cd 	change directory
+	cd -	go to last directory
+mkdir <directory> ...	make directory
+rmdir <directory> …	remove directory
+cp	copy a file
+touch	create a file
+mv	move a file
+*	wildcard; useful for ls etc.; any character(s)
+?	any single  character
+rm	delete filesls
+ 
+working with files
+less	view a file; Q to exit	
+cat	print; also combines multiple files; used to copy the content of a file to another file
+>	redirect to a file
+e.g.	cat <file1> <file2> > <file3>; writes file1 and file2 into (new) file3
+>>	append to a file
+echo ‘string’	generate ‘string’; combine with > or >>
+head	print the first 10 lines of a file; or -n for n number of lines
+tail	print the last 10 lines of a file
+cut -f n <file>		print column n of file (tab delimited);  -d’;’ for other delimitor (e.g. ; )
+wc	file information
+sort	sort a file in a particular order; -n numerical sorting
+grep <string> file	extract all lines with a keyword; -c count number of lines with entry; 
+			-i case insensitive; look up “regular expressions”;  very powerful
+			https://git.embl.de/stamper/regex-introduction
+|	“pipe”; combine files; command1 file | command2
+	grep A genes.csv | cut -f 3; print all column 3 arguments from rows containing A
+ 
+ 
+looping
+for i in t*.txt; do echo $i; done
+for afile in t*.txt; do echo $afile; done
+for i in t*.txt; do cp $i copy_of_$i; done
+ 
+Python
+easy to learn, transfer general knowledge to other languages
+ 
+ 
+handling lists; splitting and reading columns from files
+ 
+for files in os.listdir("."):
+    if files.endswith(".fasta"):
+        with open("../demo_folder/" +files, 'r') as in_fh:
+            for entry in in_fh:
+                if entry.startswith(">"):
+                    print(entry.split("|")[0:2])
+                    print(entry.split("OS=")[1].split("GN=")[0])
+ 
+ 
+in bash:
+python	script	argument1	argument2 etc.
+	0	1		2
+ 
+ 
+git / git-hub
+create a repository
+git config --global user.name “Lukas”		--do once for setup
+git config --global user.mail “email-adress”
+git config --global color.ui “auto”
+ 
+changes tracked in folder .git/ of working directory (i.e. repository)
+ 
+git config --global core.editor "C:\Program Files (x86)\Notepad++\notepad++.exe"
+git config --global core.editor "’E:\Notepad++\notepad++.exe’"
+ 
+git config --global core.editor "'E:/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
+ 
+git config --global core.editor "'C:\Program Files (x86)\Notepad++\notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
+ 
+E:\Notepad++
+git status 	- frequently check
+ 
+git commit
+ 
+git push origin master
+ 
+git log
+.gitignore	files you don’t want git to track
+echo ‘pointless*’ > .gitignore			negate a rule: ! (use append to update rules accordingly)
+git add .gitignore
+ 
+alias notepad="E:\Notepad++\notepad++.exe"
+git diff	difference
+git diff HEAD~1 restaurants.txt 	(read: minus one)
+git show hash
+git checkout 	-- filename 	;discard most recent changes to a file#
+detached head:	 resulted from	git checkout hash	(without a filename)
+git checkout master
+start with a folder locally, create an online repository from it
+git remote add origin URL* (*of new repository)
+git push origin master
+git fetch origin master; check if local version is behind online
